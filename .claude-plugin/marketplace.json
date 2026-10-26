@@ -1,0 +1,17 @@
+{
+  "name": "onyxia",
+  "owner": {
+    "name": "Onyxia",
+    "url": "https://onyxia.io"
+  },
+  "metadata": {
+    "description": "The Onyxia plugin for Claude: ask about your security metrics, devices and users."
+  },
+  "plugins": [
+    {
+      "name": "onyxia",
+      "source": "./plugins/onyxia",
+      "description": "Ask Claude about your security metrics (CPIs), SLAs, devices and users from Onyxia."
+    }
+  ]
+}

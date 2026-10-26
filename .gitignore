@@ -1,0 +1,11 @@
+# Build output from scripts/build.py
+dist/
+
+# Local issue tracker, as in onyxia-agent
+tasks/
+
+# Local plans and test notes, kept out of the public repo
+plans/
+
+__pycache__/
+.DS_Store

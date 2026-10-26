@@ -1,0 +1,13 @@
+{
+  "name": "onyxia",
+  "displayName": "Onyxia",
+  "version": "0.1.0",
+  "description": "Ask Claude about your security metrics (CPIs), SLAs, devices and users from Onyxia.",
+  "author": {
+    "name": "Onyxia",
+    "url": "https://onyxia.io"
+  },
+  "homepage": "https://github.com/onyxia-cyber/onyxia-claude-plugin#readme",
+  "license": "LicenseRef-Onyxia-Proprietary",
+  "keywords": ["security", "cpi", "metrics", "sla", "inventory", "onyxia"]
+}
