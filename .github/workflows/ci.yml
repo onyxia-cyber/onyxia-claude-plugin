@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main, develop]
+
+# Read the repository only. The onyxia-agent checkout uses its own deploy key.
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build and validate every target
+    runs-on: ubuntu-latest
+    env:
+      ONYXIA_AGENT: ${{ github.workspace }}/.ci/onyxia-agent
+    steps:
+      # Full history and tags, for the version check against the base branch.
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # The skills' one source. onyxia-agent is private: ONYXIA_AGENT_DEPLOY_KEY is
+      # the private half of a read-only deploy key on onyxia-agent.
+      - uses: actions/checkout@v4
+        with:
+          repository: onyxia-cyber/onyxia-agent
+          ref: main
+          path: .ci/onyxia-agent
+          ssh-key: ${{ secrets.ONYXIA_AGENT_DEPLOY_KEY }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      # Claude Code's own plugin validator. 2.1.281 or later checks MCP entries.
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code@2.1.310
+
+      - name: Compare the skills with onyxia-agent main
+        run: python scripts/sync_skills.py "$ONYXIA_AGENT" --check
+
+      - name: Check the version went up with any plugin change
+        if: github.event_name == 'pull_request'
+        run: python scripts/check_version.py "origin/${{ github.base_ref }}"
+
+      - name: Test the build
+        run: python -m unittest discover -s tests -v
