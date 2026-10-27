@@ -7,6 +7,10 @@ claude plugin marketplace update onyxia
 claude plugin update onyxia@onyxia
 ```
 
+## 0.1.2 (2026-10-27)
+
+- The plugin names its privacy policy and terms of use, for its listing in Anthropic's directory.
+
 ## 0.1.1 (2026-10-27)
 
 - The plugin has a logo, used for its listing in Anthropic's directory.
