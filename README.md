@@ -71,7 +71,7 @@ An Owner sets Onyxia up once for the organization. Each member then signs in wit
    /plugin install onyxia@onyxia
    ```
 
-2. Start Claude Code, run `/mcp`, choose `plugin:onyxia:onyxia_cyber`, and sign in. The client ID is already in the plugin, so you do not type it.
+2. Start Claude Code, run `/mcp`, choose `plugin:onyxia:onyxia-cyber`, and sign in. The client ID is already in the plugin, so you do not type it.
    <!-- Screenshot: docs/images/code-mcp-sign-in.png, /mcp showing the Onyxia server and the sign-in step. -->
 3. Your browser opens the Onyxia sign-in page. Sign in. The browser then returns to `http://localhost:41871/callback` on your own machine, and Claude Code finishes the sign-in.
 4. Ask Claude an Onyxia question.
@@ -128,7 +128,7 @@ For administrators who manage Claude Code across an organization. Managed settin
     "onyxia@onyxia": true
   },
   "permissions": {
-    "allow": ["mcp__plugin_onyxia_onyxia_cyber"]
+    "allow": ["mcp__plugin_onyxia_onyxia-cyber"]
   }
 }
 ```

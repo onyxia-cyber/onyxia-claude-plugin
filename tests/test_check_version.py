@@ -11,6 +11,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 CHECK = ROOT / "scripts" / "check_version.py"
 MANIFEST = Path("plugins/onyxia/.claude-plugin/plugin.json")
+# The version the real plugin is at. The fixture tags it as released.
+VERSION = json.loads((ROOT / MANIFEST).read_text())["version"]
+MAJOR, MINOR, PATCH = (int(part) for part in VERSION.split("."))
+HIGHER = f"{MAJOR}.{MINOR}.{PATCH + 1}"
 
 
 def git(repo: Path, *args: str) -> None:
@@ -45,7 +49,7 @@ class VersionCheckTests(unittest.TestCase):
         git(self.repo, "init", "-q", "-b", "base")
         git(self.repo, "add", "-A")
         git(self.repo, "commit", "-q", "-m", "base")
-        git(self.repo, "tag", "v0.1.0")
+        git(self.repo, "tag", f"v{VERSION}")
         git(self.repo, "checkout", "-q", "-b", "change")
 
     def tearDown(self):
@@ -67,11 +71,11 @@ class VersionCheckTests(unittest.TestCase):
 
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("plugins/onyxia/README.md", result.stdout + result.stderr)
-        self.assertIn("0.1.0", result.stdout + result.stderr)
+        self.assertIn(VERSION, result.stdout + result.stderr)
 
     def test_the_same_change_with_a_version_bump_passes(self):
         self.commit("plugins/onyxia/README.md", "Changed.\n")
-        self.bump("0.1.1")
+        self.bump(HIGHER)
 
         result = check(self.repo)
 
@@ -86,7 +90,7 @@ class VersionCheckTests(unittest.TestCase):
         self.assertNotEqual(result.returncode, 0)
 
     def test_a_version_never_released_can_change_without_a_bump(self):
-        git(self.repo, "tag", "-d", "v0.1.0")
+        git(self.repo, "tag", "-d", f"v{VERSION}")
         self.commit("plugins/onyxia/README.md", "Changed.\n")
 
         result = check(self.repo)

@@ -18,7 +18,7 @@ EXAMPLE = {"url": "https://example.test/mcp", "clientId": "00000000-0000-0000-00
 SERVER_FILE = ".mcp.json"
 # The name Claude shows for the plugin, and the key of its connector.
 DISPLAY_NAME = "Onyxia Cyber"
-SERVER = "onyxia_cyber"
+SERVER = "onyxia-cyber"
 CALLBACK_PORT = 41871
 
 
