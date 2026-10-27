@@ -7,6 +7,11 @@ claude plugin marketplace update onyxia
 claude plugin update onyxia@onyxia
 ```
 
+## 0.1.1 (2026-10-27)
+
+- The plugin has a logo, used for its listing in Anthropic's directory.
+- The connector key is now `onyxia-cyber` instead of `onyxia_cyber`. In Claude Code the server is `plugin:onyxia:onyxia-cyber`, and permission rules use `mcp__plugin_onyxia_onyxia-cyber`.
+
 ## 0.1.0 (2026-10-27)
 
 The first release.
