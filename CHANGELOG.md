@@ -7,7 +7,7 @@ claude plugin marketplace update onyxia
 claude plugin update onyxia@onyxia
 ```
 
-## 0.1.0 (not released yet)
+## 0.1.0 (2026-10-27)
 
 The first release.
 
