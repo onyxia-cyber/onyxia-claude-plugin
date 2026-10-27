@@ -1,6 +1,6 @@
 {
   "mcpServers": {
-    "onyxia": {
+    "onyxia_cyber": {
       "type": "http",
       "url": "https://api.onyxia.io/mcp",
       "oauth": {

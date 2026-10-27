@@ -1,4 +1,4 @@
-# Onyxia
+# Onyxia Cyber
 
 Ask Claude about your security program in Onyxia: how your security metrics (CPIs) compare to their SLAs, how they changed over time, and which devices and users are behind them. You can also count and filter your devices and users, or paste a bare value, such as an email address or an IP address, to find out what it belongs to.
 
