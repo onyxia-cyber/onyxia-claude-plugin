@@ -23,7 +23,7 @@ ROOT = Path(__file__).resolve().parent.parent
 SOURCE = ROOT / "plugins" / "onyxia"
 TARGETS = ROOT / "targets"
 SERVER_FILE = ".mcp.json"
-SERVER = "onyxia"
+SERVER = "onyxia_cyber"
 # Fixes Claude Code's sign-in return address at http://localhost:41871/callback,
 # which each Frontegg environment allows.
 CALLBACK_PORT = 41871

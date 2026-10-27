@@ -16,6 +16,9 @@ TARGETS = sorted(path.stem for path in (ROOT / "targets").glob("*.json"))
 # out of this public repository, and are built by path the same way.
 EXAMPLE = {"url": "https://example.test/mcp", "clientId": "00000000-0000-0000-0000-000000000000"}
 SERVER_FILE = ".mcp.json"
+# The name Claude shows for the plugin, and the key of its connector.
+DISPLAY_NAME = "Onyxia Cyber"
+SERVER = "onyxia_cyber"
 CALLBACK_PORT = 41871
 
 
@@ -36,7 +39,7 @@ def files(folder: Path) -> dict[str, bytes]:
 
 
 def server(folder: Path) -> dict:
-    return json.loads((folder / SERVER_FILE).read_text())["mcpServers"]["onyxia"]
+    return json.loads((folder / SERVER_FILE).read_text())["mcpServers"][SERVER]
 
 
 def target(name: str) -> dict:
@@ -73,6 +76,13 @@ class BuildTests(unittest.TestCase):
 
     def test_only_the_production_target_is_in_this_public_repository(self):
         self.assertEqual(TARGETS, ["production"])
+
+    def test_the_plugin_shows_as_onyxia_cyber(self):
+        for name in self.built:
+            with self.subTest(target=name):
+                manifest = json.loads((self.built[name] / ".claude-plugin" / "plugin.json").read_text())
+
+                self.assertEqual(manifest["displayName"], DISPLAY_NAME)
 
     def test_with_no_target_the_build_is_production_and_matches_the_source(self):
         with tempfile.TemporaryDirectory() as out:
