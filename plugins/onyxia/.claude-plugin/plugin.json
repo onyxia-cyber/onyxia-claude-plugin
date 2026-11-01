@@ -1,8 +1,8 @@
 {
   "name": "onyxia",
   "displayName": "Onyxia Cyber",
-  "version": "0.1.2",
-  "description": "Ask Claude about your security metrics (CPIs), SLAs, devices and users from Onyxia.",
+  "version": "0.1.3",
+  "description": "Connect Onyxia to Claude so security teams can investigate their environment and program in plain language, using Onyxia’s trusted, deduplicated data. Find every device and user, such as unencrypted laptops, users without MFA, or one person’s devices. See the full profile of any asset, with the value each security tool reports. Respond to zero-days like PHP2Shell in minutes, finding affected servers, their owners, and what’s past SLA. Track metrics against SLAs over time, for example, “How has critical vulnerability resolution changed over the past 6 months?” and pull the overdue items behind any missed target.",
   "author": {
     "name": "Onyxia Cyber",
     "url": "https://onyxia.io"
@@ -12,5 +12,5 @@
   "privacyPolicyUrl": "https://www.onyxia.io/privacy-policy",
   "termsOfServiceUrl": "https://www.onyxia.io/terms-of-use",
   "license": "All Rights Reserved",
-  "keywords": ["security", "cpi", "metrics", "sla", "inventory", "onyxia"]
+  "keywords": ["security", "metrics", "inventory", "onyxia"]
 }

@@ -13,6 +13,16 @@ For example:
 - The Onyxia connector, which reads your Onyxia data. Every tool is read-only.
 - Three skills that tell Claude how to answer the way the Onyxia app does: **metrics**, **inventory**, and **lookup**.
 
+## Install
+
+In Claude Code:
+
+```text
+/plugin install onyxia --marketplace onyxia-cyber/onyxia-claude-plugin
+```
+
+In the Claude desktop app or on claude.ai, open **Customize > Plugins**, add the marketplace `https://github.com/onyxia-cyber/onyxia-claude-plugin`, then install **Onyxia Cyber**.
+
 ## Setup
 
 Installing the plugin does not sign you in. Sign in once with your Onyxia account: on the plugin's Connectors tab in the Claude app, or from `/mcp` in Claude Code. You only see the data your Onyxia account can see.
