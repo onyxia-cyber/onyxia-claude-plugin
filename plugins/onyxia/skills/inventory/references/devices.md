@@ -17,9 +17,13 @@ down by OS_NAME, ASSET_TYPE, or LAST_SEEN.
 | Devices from one product | `{"SOURCES": {"any_": ["<product name>"]}}` |
 | The device with one IP address | `{"IP_ADDRESSES": {"array_contains_": ["<ip>"]}}` |
 | The device with one MAC address | `{"MAC_ADDRESSES": {"array_contains_": ["<mac>"]}}` |
-| A device by name | `{"HOSTNAME": {"contains_": ["<name>"]}}` |
+| A device by its full name | `{"HOSTNAME": {"any_": ["<name>"]}}` |
+| Devices by part of a name | `{"HOSTNAME": {"contains_": ["<part>"]}}` |
+| A device by serial number | `{"SERIAL_NUMBER": {"any_": ["<serial>"]}}` |
 
 - STALE_TIME is a number of days. Filter it with `gte_`, `lte_`, or `between_`.
+- A LAST_SEEN or STALE_TIME condition from the user is the window. Do not add the
+  default 30 days to it.
 - USER_NAMES, GROUP_NAMES, GROUP_IDS, MAC_ADDRESSES and IP_ADDRESSES are lists.
   Filter them with `array_contains_` for an exact element, or `array_like_` for
   part of one.
