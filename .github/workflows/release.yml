@@ -29,10 +29,15 @@ jobs:
       - name: Build production
         run: python scripts/build.py production --out dist
 
-      # A draft, so a person writes the release note before customers see it.
+      # The note is the update lines and this version's CHANGELOG section only.
+      - name: Write the release note
+        run: python scripts/release_notes.py "${GITHUB_REF_NAME#v}" > dist/release-notes.md
+
+      # A draft, so a person reviews it before customers see it. Publish this
+      # draft as it is; a new release made by hand would miss the zip.
       - name: Draft the release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release create "$GITHUB_REF_NAME" dist/onyxia-production-*.zip \
-            --draft --title "$GITHUB_REF_NAME" --notes-file CHANGELOG.md
+            --draft --title "$GITHUB_REF_NAME" --notes-file dist/release-notes.md
