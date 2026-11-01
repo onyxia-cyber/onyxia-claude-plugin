@@ -18,7 +18,8 @@ down by EMAIL_DOMAIN, DEPARTMENTS, LOCATION, GROUP_NAMES, or LAST_LOGIN.
 | One person by name | `{"DISPLAY_NAME": {"contains_": ["<name>"]}}` |
 
 - DISPLAY_NAME is the person's full name. FIRST_NAME and LAST_NAME hold its
-  parts and take the same predicates.
+  parts and take the same predicates. Products write names in different ways,
+  so match a name with `contains_`, not `any_`.
 - ADMIN_STATUS holds isAdmin or nonAdmin. USER_STATUS values depend on the
   source, so take them from earlier results.
 - EMAILS_ADDRESSES, DEPARTMENTS, GROUP_NAMES, USER_ROLES and EMAIL_DOMAIN are
@@ -26,6 +27,8 @@ down by EMAIL_DOMAIN, DEPARTMENTS, LOCATION, GROUP_NAMES, or LAST_LOGIN.
   element, not only the first. Use `array_like_` for part of an element.
 - Date fields take `gte_`, `lte_`, `between_` and `last_days_` only. A user with
   no LAST_LOGIN falls outside every date filter, so it is in no login count.
+- A LAST_LOGIN condition from the user is the window. Do not add the default 30
+  days to it.
 - A user with no MFA value is one no source reports MFA for. It is not a user
   without MFA. Count those separately with `{"HAS_MFA": {"no_value_": true}}`.
 - `equal_: false` finds a user when any source reports no MFA, even when the

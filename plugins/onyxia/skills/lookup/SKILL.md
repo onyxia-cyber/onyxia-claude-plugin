@@ -17,6 +17,10 @@ A message that is only a value means "tell me about this". Find what the value
 belongs to in the inventory and describe it. Do not ask what the person wants to
 know.
 
+The search workflow in the inventory skill holds the full rules for searching.
+This playbook repeats the ones a lookup needs, so it works on its own. For
+anything it does not cover, use the inventory skill's search workflow.
+
 ## What counts as a bare value
 
 - The message is one value, perhaps with a few words that ask nothing, such as
@@ -36,20 +40,22 @@ know.
 | Has an `@` | A person's email address | Users with `{"EMAILS_ADDRESSES": {"array_contains_": ["<email>"]}}` |
 | Four numbers with dots, or hex groups with colons | An IP address | Devices with `{"IP_ADDRESSES": {"array_contains_": ["<ip>"]}}` |
 | Six pairs of hex digits | A MAC address | Devices with `{"MAC_ADDRESSES": {"array_contains_": ["<mac>"]}}` |
-| A short name with letters, digits and dashes, such as `LAPTOP-7F3K2` | A device name | Devices with `{"HOSTNAME": {"contains_": ["<name>"]}}` |
+| A short name with letters, digits and dashes, such as `LAPTOP-7F3K2` | A device name | Devices with `{"HOSTNAME": {"any_": ["<name>"]}}` |
 | Two or three capitalised words | A person's name | Users with `{"DISPLAY_NAME": {"contains_": ["<name>"]}}` |
 
+- Each search is an exact filter for a complete value, except a person's name,
+  which products write in different ways. When the value is only part of one,
+  such as `10.20.31` or `LAPTOP-7F`, match part of it instead.
 - Search the value exactly as the person wrote it. Text matching ignores case.
 - Sources write MAC addresses with colons or with dashes. When one form finds
   nothing, try the other before saying nothing matched.
 - When the look of the value fits no row, or its row finds nothing and another
   row could fit, try the next likely row once.
 
-## No time window
+## Any age
 
-A lookup wants the thing whatever its age. Do not put LAST_SEEN or LAST_LOGIN in
-the filter, and pass no `last_days`. This is the one place where the inventory
-rule to always pass a window does not apply. Instead, say when each device was
+A bare value names one device or person, so the search has no time window. Do
+not put LAST_SEEN or LAST_LOGIN in the filter. Instead, say when each device was
 last seen or each person last logged in, so the person can judge how stale it is.
 
 ## People are users only
@@ -59,15 +65,20 @@ answer is about the person's own record. Whether they own devices depends on wha
 the products report, so do not search for them. Offer the person's devices as the
 next step instead.
 
-## Three outcomes
+## Four outcomes
 
-**No match.** Say plainly that nothing in the inventory reports this value. Give
-`last_updated` as when the inventory was last built. Offer one other value to
-try, such as the device name for an IP address, or the exact spelling of a name.
-Show no table.
+`total_results` decides the outcome. It counts every match, not only the records
+on the page, so a page with one record can still be one of several.
 
-**One match.** Fetch the full record with `inventory_get`. Describe it in text:
-what it is, who it belongs to, and the security facts that matter.
+**No match.** The search succeeded and `total_results` is 0. Say plainly that
+nothing in the inventory reports this value. Give `last_updated` as when the
+inventory was last built. Offer one other value to try, such as the device name
+for an IP address, or the exact spelling of a name. Show no table.
+
+**One match.** Fetch the full record with `inventory_get`, using the `ENTITY_ID`
+from the search. Describe it in text: what it is, who it belongs to, and the
+security facts that matter. If the fetch fails, describe only what the search
+returned, and say the full details could not be fetched.
 
 - A device: OS, last seen, encrypted, managed, compliant, and which products
   report it.
@@ -76,10 +87,15 @@ what it is, who it belongs to, and the security facts that matter.
 
 **Several matches.** Show every match in one table, with the columns that tell
 them apart: for devices, name, owner, OS, and last seen; for people, name, email
-address, department, and last login. Read `total_results` and say how many
-of the total are shown, such as "10 of 14". Do not pick one, and do not ask which
-one before showing them. The same IP address often moves between devices over
-time, so last seen is what tells them apart.
+address, department, and last login. Say how many of the total are shown, such
+as "10 of 14". Do not pick one, and do not ask which one before showing them.
+The same IP address often moves between devices over time, so last seen is what
+tells them apart.
+
+**The search failed.** The tool failed, or its response could not be read. That
+is not a no match. Say you could not check the value. Do not repeat the search,
+and do not change its filter or columns to get around the failure. Offer to try
+again later as the next step.
 
 ## Answering
 

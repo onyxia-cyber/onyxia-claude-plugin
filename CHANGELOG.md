@@ -7,6 +7,12 @@ claude plugin marketplace update onyxia
 claude plugin update onyxia@onyxia
 ```
 
+## 0.1.4 (2026-11-01)
+
+- Looking up one device or person finds it whatever its age. A full email address, IP address, device name or serial number is matched exactly, and a person's name is matched in part.
+- When a search fails, Claude says it could not check, instead of saying nothing matched.
+- A condition such as "no login in 90 days" replaces the default 30-day window instead of being added to it.
+
 ## 0.1.3 (2026-11-01)
 
 - The connector's address is now `https://mcp.onyxia.io/mcp` instead of `https://api.onyxia.io/mcp`. It is the address the Onyxia server names as its own.
