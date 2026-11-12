@@ -20,6 +20,8 @@ SERVER_FILE = ".mcp.json"
 DISPLAY_NAME = "Onyxia Cyber"
 SERVER = "onyxia-cyber"
 CALLBACK_PORT = 41871
+# The most characters Claude accepts in a plugin's description.
+DESCRIPTION_LIMIT = 500
 
 
 def build(out: Path, *args: str) -> subprocess.CompletedProcess:
@@ -171,6 +173,14 @@ class BuildTests(unittest.TestCase):
                 self.assertLessEqual(keys, allowed)
                 self.assertIn("name", keys)
                 self.assertIn("description", keys)
+
+    def test_the_plugin_description_is_short_enough_to_install(self):
+        # Claude refuses to install a plugin with a longer one; the validator does not check.
+        for name in self.built:
+            with self.subTest(target=name):
+                manifest = self.built[name] / ".claude-plugin" / "plugin.json"
+                description = json.loads(manifest.read_text())["description"]
+                self.assertLessEqual(len(description), DESCRIPTION_LIMIT)
 
     def test_claude_validates_the_marketplace_and_every_built_plugin(self):
         for path in (ROOT, *self.built.values()):
