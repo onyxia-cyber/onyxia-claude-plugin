@@ -7,6 +7,10 @@ claude plugin marketplace update onyxia
 claude plugin update onyxia@onyxia
 ```
 
+## 0.1.5 (2026-11-12)
+
+- The plugin installs again. Claude refused it because the description was longer than 500 characters, so the description is now shorter.
+
 ## 0.1.4 (2026-11-01)
 
 - Looking up one device or person finds it whatever its age. A full email address, IP address, device name or serial number is matched exactly, and a person's name is matched in part.
