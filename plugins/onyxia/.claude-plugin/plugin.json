@@ -1,7 +1,7 @@
 {
   "name": "onyxia",
   "displayName": "Onyxia Cyber",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Connect Onyxia to Claude so security teams can investigate their environment and program in plain language, using Onyxia’s trusted, deduplicated data. Find any device or user, such as unencrypted laptops or users without MFA. See any asset’s full profile and what each security tool reports. Respond to zero-days like PHP2Shell in minutes, finding affected servers, their owners, and what’s past SLA. Track metrics against SLAs over time and pull the overdue items behind any missed target.",
   "author": {
     "name": "Onyxia Cyber",
