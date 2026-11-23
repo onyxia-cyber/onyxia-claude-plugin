@@ -7,6 +7,12 @@ claude plugin marketplace update onyxia
 claude plugin update onyxia@onyxia
 ```
 
+## 0.1.6 (2026-11-23)
+
+- The Onyxia client ID is now `415af550-4b1b-4266-a522-23b96e4948a2`. Claude Code picks it up with the update.
+- In the Claude desktop app or claude.ai, where you pasted the client ID yourself, use the new one whenever the app asks for it.
+- If Claude asks you to sign in to Onyxia again after the update, sign in once.
+
 ## 0.1.5 (2026-11-12)
 
 - The plugin installs again. Claude refused it because the description was longer than 500 characters, so the description is now shorter.

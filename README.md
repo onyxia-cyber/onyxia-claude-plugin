@@ -28,7 +28,7 @@ It works in the Claude desktop app, on claude.ai, in Cowork and in Claude Code.
 - The Onyxia client ID, which the Claude app asks for:
 
   ```text
-  50440671-7472-4c72-a3b9-7623d3798903
+  415af550-4b1b-4266-a522-23b96e4948a2
   ```
 
 ## Install
